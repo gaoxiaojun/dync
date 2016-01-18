@@ -2,11 +2,12 @@ cmake_minimum_required(VERSION 2.8)
 project(hotspot)
 
 # global var
-set(TARGET_ARCH amd64)
-
+set(TARGET_ARCH x86_64)
+set(PLATFORM_ARCH_MODE bsd_x86_64)
 
 # set command include paths
-include_directories(src/share/vm)
+include_directories(src/share/vm src/share/vm/precompiled)
+add_definitions(-DCOMPILER2 -DTARGET_COMPILER_gcc -DTARGET_ARCH_MODEL_${TARGET_ARCH} -DTARGET_ARCH_x86 -DTARGET_OS_FAMILY_bsd)
 
 # set adlc 
 
@@ -40,85 +41,81 @@ src/share/vm/opto/opcodes.cpp
 )
 
 add_executable(adlc ${ADLC_SRC})
-cmake_minimum_required(VERSION 2.8)
-project(adlc)
-include_directories(.. ../precompiled)
-add_definitions(-DCOMPILER2 -DTARGET_COMPILER_gcc -DTARGET_ARCH_MODEL_x86_64 -DTARGET_ARCH_x86 -DTARGET_OS_FAMILY_bsd)
 
 set(OPTO_SRC
-addnode.cpp
-arraycopynode.cpp
-block.cpp
-buildOopMap.cpp
-bytecodeInfo.cpp
-c2_globals.cpp
-c2compiler.cpp
-callGenerator.cpp
-callnode.cpp
-castnode.cpp
-cfgnode.cpp
-chaitin.cpp
-classes.cpp
-coalesce.cpp
-compile.cpp
-connode.cpp
-convertnode.cpp
-countbitsnode.cpp
-divnode.cpp
-doCall.cpp
-domgraph.cpp
-escape.cpp
-gcm.cpp
-generateOptoStub.cpp
-graphKit.cpp
-idealGraphPrinter.cpp
-idealKit.cpp
-ifg.cpp
-ifnode.cpp
-indexSet.cpp
-intrinsicnode.cpp
-lcm.cpp
-library_call.cpp
-live.cpp
-locknode.cpp
-loopPredicate.cpp
-loopTransform.cpp
-loopUnswitch.cpp
-loopnode.cpp
-loopopts.cpp
-machnode.cpp
-macro.cpp
-macroArrayCopy.cpp
-matcher.cpp
-mathexactnode.cpp
-memnode.cpp
-movenode.cpp
-mulnode.cpp
-multnode.cpp
-narrowptrnode.cpp
-node.cpp
-opaquenode.cpp
-opcodes.cpp
-output.cpp
-parse1.cpp
-parse2.cpp
-parse3.cpp
-parseHelper.cpp
-phase.cpp
-phaseX.cpp
-postaloc.cpp
-reg_split.cpp
-regalloc.cpp
-regmask.cpp
-replacednodes.cpp
-rootnode.cpp
-runtime.cpp
-split_if.cpp
-stringopts.cpp
-subnode.cpp
-superword.cpp
-type.cpp
-vectornode.cpp
+src/share/vm/opto/addnode.cpp
+src/share/vm/opto/arraycopynode.cpp
+src/share/vm/opto/block.cpp
+src/share/vm/opto/buildOopMap.cpp
+src/share/vm/opto/bytecodeInfo.cpp
+src/share/vm/opto/c2_globals.cpp
+src/share/vm/opto/c2compiler.cpp
+src/share/vm/opto/callGenerator.cpp
+src/share/vm/opto/callnode.cpp
+src/share/vm/opto/castnode.cpp
+src/share/vm/opto/cfgnode.cpp
+src/share/vm/opto/chaitin.cpp
+src/share/vm/opto/classes.cpp
+src/share/vm/opto/coalesce.cpp
+src/share/vm/opto/compile.cpp
+src/share/vm/opto/connode.cpp
+src/share/vm/opto/convertnode.cpp
+src/share/vm/opto/countbitsnode.cpp
+src/share/vm/opto/divnode.cpp
+src/share/vm/opto/doCall.cpp
+src/share/vm/opto/domgraph.cpp
+src/share/vm/opto/escape.cpp
+src/share/vm/opto/gcm.cpp
+src/share/vm/opto/generateOptoStub.cpp
+src/share/vm/opto/graphKit.cpp
+src/share/vm/opto/idealGraphPrinter.cpp
+src/share/vm/opto/idealKit.cpp
+src/share/vm/opto/ifg.cpp
+src/share/vm/opto/ifnode.cpp
+src/share/vm/opto/indexSet.cpp
+src/share/vm/opto/intrinsicnode.cpp
+src/share/vm/opto/lcm.cpp
+src/share/vm/opto/library_call.cpp
+src/share/vm/opto/live.cpp
+src/share/vm/opto/locknode.cpp
+src/share/vm/opto/loopPredicate.cpp
+src/share/vm/opto/loopTransform.cpp
+src/share/vm/opto/loopUnswitch.cpp
+src/share/vm/opto/loopnode.cpp
+src/share/vm/opto/loopopts.cpp
+src/share/vm/opto/machnode.cpp
+src/share/vm/opto/macro.cpp
+src/share/vm/opto/macroArrayCopy.cpp
+src/share/vm/opto/matcher.cpp
+src/share/vm/opto/mathexactnode.cpp
+src/share/vm/opto/memnode.cpp
+src/share/vm/opto/movenode.cpp
+src/share/vm/opto/mulnode.cpp
+src/share/vm/opto/multnode.cpp
+src/share/vm/opto/narrowptrnode.cpp
+src/share/vm/opto/node.cpp
+src/share/vm/opto/opaquenode.cpp
+src/share/vm/opto/opcodes.cpp
+src/share/vm/opto/output.cpp
+src/share/vm/opto/parse1.cpp
+src/share/vm/opto/parse2.cpp
+src/share/vm/opto/parse3.cpp
+src/share/vm/opto/parseHelper.cpp
+src/share/vm/opto/phase.cpp
+src/share/vm/opto/phaseX.cpp
+src/share/vm/opto/postaloc.cpp
+src/share/vm/opto/reg_split.cpp
+src/share/vm/opto/regalloc.cpp
+src/share/vm/opto/regmask.cpp
+src/share/vm/opto/replacednodes.cpp
+src/share/vm/opto/rootnode.cpp
+src/share/vm/opto/runtime.cpp
+src/share/vm/opto/split_if.cpp
+src/share/vm/opto/stringopts.cpp
+src/share/vm/opto/subnode.cpp
+src/share/vm/opto/superword.cpp
+src/share/vm/opto/type.cpp
+src/share/vm/opto/vectornode.cpp
 )
 
-add_library(opto ${OPTO_SRC})
+#add_library(opto ${OPTO_SRC})
